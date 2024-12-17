@@ -46,48 +46,48 @@ edges = {
     ("l", "p"): "lp", ("p", "l"): "pl"
 }
 
-def nodes_to_edges(route, edge_map):
-    edges = []
-    for i in range(len(route) - 1):
-        edge = edge_map.get((route[i], route[i+1]))
-        if edge:
-            edges.append(edge)
-    return edges
-
-
-import random
-
 
 # Function to generate routes based on nodes and convert to edges
 def generate_random_routes(num_vehicles, num_routes):
-    route_file = open("simple_routes.rou.xml", "w")
+    route_file = open("random_routes.rou.xml", "w")
     route_file.write('<routes>\n')
     route_file.write('<vType id="type1" accel="2.6" decel="4.5" sigma="0.5" length="5" maxSpeed="13.89"/>\n')
 
-    routes = []
     for i in range(num_routes):
         node_route = []
         current_node = random.choice(list(adjacency.keys()))
         node_route.append(current_node)
-        while len(node_route) < random.randint(2, 5):
+        print("******************")
+        while len(node_route) < random.randint(3, 5):
             next_nodes = adjacency.get(current_node, [])
+            print("current node=",current_node)
+            print("next nodes=", next_nodes)
             if not next_nodes:
                 break
             current_node = random.choice(next_nodes)
-            if current_node not in node_route:  # Prevent revisiting nodes in the same route
-                node_route.append(current_node)
-
+            print("next node=",current_node)
+            print()
+            if current_node in node_route:  # Prevent revisiting nodes in the same route
+                if next_nodes in node_route:
+                    break
+                else:
+                    current_node = random.choice(next_nodes except current_node)
+            node_route.append(current_node)
+        print("--------------------------node route=",node_route)
         edge_route = [edges[(node_route[j], node_route[j + 1])] for j in range(len(node_route) - 1)]
         edge_route_str = " ".join(edge_route)
-
         route_file.write(f'    <route id="route{i}" edges="{edge_route_str}"/>\n')
 
+    vehicles = []
     for i in range(num_vehicles):
-        route_id = random.randint(0, num_routes - 1)
-        depart_time = random.randint(0, 100)
-        route_file.write(f'    <vehicle id="veh{i}" type="type1" route="route{route_id}" depart="{depart_time}"/>\n')
+        route_id = random.randint(0, num_routes-1)
+        depart_time = random.randint(0, 1000)
+        vehicles.append((i, route_id, depart_time))
+    # Sort vehicles by departure time
+    vehicles.sort(key=lambda x: x[2])
+
+    for vehicle in vehicles:
+        route_file.write(f' <vehicle id="veh{vehicle[0]}" type="type1" route="route{vehicle[1]}" depart="{vehicle[2]}"/>\n')
 
     route_file.write('</routes>\n')
     route_file.close()
-
-

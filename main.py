@@ -10,8 +10,7 @@ SUMO_CONFIG = "simulation.sumocfg"  # Your SUMO simulation configuration file
 
 def run_simulation(veh_ids,detected_vehicles):
     # Define adjacency relationships
-
-    #routesgeneration.generate_random_routes(50, 10)
+    routesgeneration.generate_random_routes(1000, 100)
     # Start the SUMO simulation
     traci.start([SUMO_BINARY, "-c", SUMO_CONFIG])
 
@@ -21,8 +20,8 @@ def run_simulation(veh_ids,detected_vehicles):
         traci.simulationStep()
 
         # Add vehicles at random intervals
-        if random.random() < 0.1:  # 10% chance to add a vehicle at each step
-            veh_ids=add_vehicle(step,veh_ids)
+        #if random.random() < 0.1:  # 10% chance to add a vehicle at each step
+            #veh_ids=add_vehicle(step,veh_ids)
 
         #print(traci.inductionloop.getLastStepVehicleIDs("loop1"))
         #detected_vehicles += traci.inductionloop.getLastStepVehicleIDs("loop1")
@@ -64,7 +63,7 @@ def control_traffic_lights(step):
             traci.trafficlight.setRedYellowGreenState(i, "GGGGGGGGG")
         for i in ["f", "g", "j", "k"]:
             traci.trafficlight.setRedYellowGreenState(i, "GGGGGGGGGGGGGGGG")# Green on some phases, red on others
-    #else:
+    #if step % 7 == 0:
         #for i in ["b", "c", "e",  "h", "i",  "l", "n", "o"]:
             #traci.trafficlight.setRedYellowGreenState(i, "rrrrrrrrr")
         #for i in ["f", "g", "j", "k"]:
