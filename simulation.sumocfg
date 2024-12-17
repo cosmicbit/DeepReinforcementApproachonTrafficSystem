@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns="http://sumo.dlr.de/xsd/sumo_config_file.xsd">
+  <input>
+    <net-file value="simple_network.net.xml"/>
+    <route-files value="simple_routes.rou.xml"/>
+    <additional-files value="additional.add.xml"/>
+  </input>
+  <collision action="teleport"/>
+  <time>
+    <begin value="0"/>
+    <end value="100"/>
+  </time>
+  <output>
+    <summary-output value="output.sumocfg"/>
+  </output>
+</configuration>

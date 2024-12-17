@@ -1,0 +1,3 @@
+<additional>
+    <inductionLoop id="loop1" lane="ab_0" pos="10" freq="60" file="loop_output.xml"/>
+</additional>

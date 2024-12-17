@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tlLogic xmlns="http://sumo.dlr.de/xsd/trafficlightLogic_file.xsd" id="" type="static">
+    <program id="1" type="static">
+        <!-- Phase 0: Green for North-South, Red for East-West -->
+        <!--phase duration="30" state="rGGrGyyGy"/-->
+        <!-- Phase 1: Red for North-South, Green for East-West -->
+        <!--phase duration="30" state="rrGGrrGG"/-->
+    <!--/program-->
+</tlLogic>
