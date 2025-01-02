@@ -2,7 +2,7 @@
 <configuration xmlns="http://sumo.dlr.de/xsd/sumo_config_file.xsd">
   <input>
     <net-file value="simple_network.net.xml"/>
-    <route-files value="random_routes.rou.xml"/>
+    <route-files value="randomRoutes.rou.xml"/>
     <additional-files value="additional.add.xml"/>
   </input>
   <collision action="teleport"/>

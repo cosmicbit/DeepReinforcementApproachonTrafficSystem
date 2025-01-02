@@ -58,7 +58,7 @@ def generate_random_routes(num_vehicles, num_routes):
         current_node = random.choice(list(adjacency.keys()))
         node_route.append(current_node)
         print("******************")
-        while len(node_route) < random.randint(3, 5):
+        while len(node_route) < random.randint(10, 15):
             next_nodes = adjacency.get(current_node, [])
             print("current node=",current_node)
             print("next nodes=", next_nodes)
@@ -72,7 +72,8 @@ def generate_random_routes(num_vehicles, num_routes):
                     break
                 else:
                     current_node = random.choice(list(filter(lambda x: x != current_node, next_nodes)))
-            node_route.append(current_node)
+            else:
+                node_route.append(current_node)
         print("--------------------------node route=",node_route)
         edge_route = [edges[(node_route[j], node_route[j + 1])] for j in range(len(node_route) - 1)]
         edge_route_str = " ".join(edge_route)

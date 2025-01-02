@@ -1,77 +1,82 @@
+from sumoenv import SumoEnv
+import gym
+import torch
+import torch.nn as nn
+import torch.optim as optim
+import numpy as np
+from collections import deque
 import random
-import routesgeneration
-import traci
 
-# Set the path to your SUMO installation
-SUMO_HOME = "/home/ryoiki/sumo"  # Replace with your SUMO directory path
-SUMO_BINARY = SUMO_HOME + "/bin/sumo-gui"  # SUMO-GUI for visual simulation, use "sumo" for command-line version
-SUMO_CONFIG = "simulation.sumocfg"  # Your SUMO simulation configuration file
+class QNetwork(nn.Module):
+    def __init__(self, state_size, action_size):
+        super(QNetwork, self).__init__()
+        self.fc1 = nn.Linear(state_size, 64)
+        self.fc2 = nn.Linear(64, 64)
+        self.fc3 = nn.Linear(64, action_size)
+
+    def forward(self, state):
+        x = torch.relu(self.fc1(state))
+        x = torch.relu(self.fc2(x))
+        x = self.fc3(x)
+        return x
 
 
-def run_simulation(veh_ids,detected_vehicles):
-    # Define adjacency relationships
-    routesgeneration.generate_random_routes(1000, 100)
-    # Start the SUMO simulation
-    traci.start([SUMO_BINARY, "-c", SUMO_CONFIG])
+class DQNAgent:
+    def __init__(self, state_size, action_size):
+        self.state_size = state_size
+        self.action_size = action_size
+        self.memory = deque(maxlen=10000)
+        self.gamma = 0.99  # discount rate
+        self.epsilon = 1.0  # exploration rate
+        self.epsilon_min = 0.01
+        self.epsilon_decay = 0.995
+        self.learning_rate = 0.001
+        self.batch_size = 64
+        self.model = QNetwork(state_size, action_size).to(device)
+        self.target_model = QNetwork(state_size, action_size).to(device)
+        self.optimizer = optim.Adam(self.model.parameters(), lr=self.learning_rate)
 
-    # Simulation loop
-    step = 0
-    while step < 1000:  # Run for 1000 steps
-        traci.simulationStep()
+    def remember(self, state, action, reward, next_state, done):
+        self.memory.append((state, action, reward, next_state, done))
 
-        # Add vehicles at random intervals
-        #if random.random() < 0.1:  # 10% chance to add a vehicle at each step
-            #veh_ids=add_vehicle(step,veh_ids)
+    def act(self, state):
+        if np.random.rand() <= self.epsilon:
+            return random.randrange(self.action_size)
+        state = torch.FloatTensor(state).to(device)
+        act_values = self.model(state)
+        return torch.argmax(act_values).item()
 
-        #print(traci.inductionloop.getLastStepVehicleIDs("loop1"))
-        #detected_vehicles += traci.inductionloop.getLastStepVehicleIDs("loop1")
+    def replay(self):
+        if len(self.memory) < self.batch_size:
+            return
+        minibatch = random.sample(self.memory, self.batch_size)
+        for state, action, reward, next_state, done in minibatch:
+            target = reward
+            if not done:
+                next_state = torch.FloatTensor(next_state).to(device)
+                target = reward + self.gamma * torch.max(self.target_model(next_state)).item()
+            state = torch.FloatTensor(state).to(device)
+            target_f = self.model(state)
+            target_f[action] = target
+            self.optimizer.zero_grad()
+            loss = nn.MSELoss()(target_f, self.model(state))
+            loss.backward()
+            self.optimizer.step()
 
-        # Control traffic lights (example: switch the light at intersection 1)
-        control_traffic_lights(step)
+        if self.epsilon > self.epsilon_min:
+            self.epsilon *= self.epsilon_decay
 
-        step += 1
-    print(f"Vehicles added: {veh_ids}")
-    print(f"Vehicles detected: {detected_vehicles}")
-    # Close the simulation
-    traci.close()
+    def update_target_model(self):
+        self.target_model.load_state_dict(self.model.state_dict())
 
-def add_vehicle(step,veh_ids):
-    """
-    Add a vehicle to the simulation at a random route
-    """
+num_episodes = 10000
+max_steps = 1000
+#outfile = open("log.txt", 'w')
 
-    route = random.choice(["route0", "route1", "route2", "route3"])  # Assuming routes "route0" and "route1" are defined
-    vehicle_id = "vehicle" + str(step)  # Unique ID for each vehicle
-    traci.vehicle.add(vehicle_id, route, "car")  # Add vehicle with route and type
-    #if route in ["route0", "route2"]:
-    #veh_ids += (vehicle_id,)
+env = SumoEnv()
+env.reset(max_steps)
 
-    # Set random speed for the vehicle
-    speed = random.uniform(10, 30)  # Random speed between 10 and 30 m/s
-    traci.vehicle.setSpeed(vehicle_id, speed)
-    return veh_ids
-
-def control_traffic_lights(step):
-    """
-    Control traffic lights based on the simulation step (simple logic)
-    """
-    point3 = random.choice(["b", "c", "e",  "h", "i",  "l", "n", "o"])
-    point4 = random.choice(["f", "g", "j", "k"])
-    if step % 10 == 0:  # Every 10th step, change the light
-        # Switch traffic light at intersection 1 (you need to have traffic lights defined in your .tll.xml)
-        for i in ["b", "c", "e",  "h", "i",  "l", "n", "o"]:
-            traci.trafficlight.setRedYellowGreenState(i, "GGGGGGGGG")
-        for i in ["f", "g", "j", "k"]:
-            traci.trafficlight.setRedYellowGreenState(i, "GGGGGGGGGGGGGGGG")# Green on some phases, red on others
-    #if step % 7 == 0:
-        #for i in ["b", "c", "e",  "h", "i",  "l", "n", "o"]:
-            #traci.trafficlight.setRedYellowGreenState(i, "rrrrrrrrr")
-        #for i in ["f", "g", "j", "k"]:
-            #traci.trafficlight.setRedYellowGreenState(i, "rrrrrrrrrrrrrrrr")
-
-if __name__ == "__main__":
-    veh_ids = ()
-    detected_vehicles = ()
-    # Run the simulation
-    run_simulation(veh_ids,detected_vehicles)
-
+for step in range(max_steps):
+    print("step ",step)
+    env.step()
+print("hello")
