@@ -3,7 +3,6 @@
   <input>
     <net-file value="simple_network.net.xml"/>
     <route-files value="randomRoutes.rou.xml"/>
-    <additional-files value="additional.add.xml"/>
   </input>
   <collision action="teleport"/>
   <time>

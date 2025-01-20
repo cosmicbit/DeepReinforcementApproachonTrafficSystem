@@ -6,7 +6,7 @@ import torch.optim as optim
 import numpy as np
 from collections import deque
 import random
-
+"""
 class QNetwork(nn.Module):
     def __init__(self, state_size, action_size):
         super(QNetwork, self).__init__()
@@ -68,15 +68,14 @@ class DQNAgent:
 
     def update_target_model(self):
         self.target_model.load_state_dict(self.model.state_dict())
-
-num_episodes = 10000
-max_steps = 1000
-#outfile = open("log.txt", 'w')
+"""
+#num_episodes = 10000
+max_steps = 500
+outfile = open(f'log2.txt', 'a')
 
 env = SumoEnv()
-env.reset(max_steps)
+state = env.reset()
 
 for step in range(max_steps):
     print("step ",step)
-    env.step()
-print("hello")
+    state, reward, done=env.step()
