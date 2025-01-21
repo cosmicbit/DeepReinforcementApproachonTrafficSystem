@@ -29,7 +29,7 @@ class SumoEnv(Env):
 
     def reset(self):
         # Generate random trips, convert to routes, and run the simulation
-        self.generate_routes(1000000)
+        self.generate_routes(10000)
         traci.start(self.sumoCmd)
         return self._get_state()
 

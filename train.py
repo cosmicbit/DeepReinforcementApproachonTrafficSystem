@@ -21,7 +21,7 @@ agent = PPO(
 print(agent.device)
 print("Starting training...")
 try:
-    agent.learn(total_timesteps=1000000)  # Adjust as needed for your setup
+    agent.learn(total_timesteps=10000)  # Adjust as needed for your setup
 finally:
     env.close()
     # Save models
