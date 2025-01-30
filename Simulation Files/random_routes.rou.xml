@@ -1,0 +1,75 @@
+<routes>
+    <vType id="type1" accel="2.6" decel="4.5" sigma="0.5" length="5" maxSpeed="13.89"/>
+
+    <route id="route0" edges="da ab be eh hi if fc"/>
+    <route id="route1" edges="dg gh he ef fc cb ba"/>
+    <route id="route2" edges="eh hg gd da"/>
+    <route id="route3" edges="da ab bc cf fe"/>
+    <route id="route4" edges="cb be ef fi ih hg gd"/>
+    <route id="route5" edges="ba ad de ef fc"/>
+    <route id="route6" edges="eb bc cf fi ih hg"/>
+    <route id="route7" edges="da ab be ef fi ih hg"/>
+    <route id="route8" edges="gh he ed da ab bc"/>
+    <route id="route9" edges="he ef fc cb ba"/>
+    <route id="route10" edges="fe ed dg gh hi"/>
+    <route id="route11" edges="if fe eh hg gd da ab bc"/>
+    <route id="route12" edges="ef fi ih hg"/>
+    <route id="route13" edges="if fc cb be ed da"/>
+    <route id="route14" edges="ba ad de ef"/>
+    <route id="route15" edges="if fc cb be eh hg"/>
+    <route id="route16" edges="ad de eh hg"/>
+    <route id="route17" edges="ad dg gh hi if"/>
+    <route id="route18" edges="fi ih hg gd da ab be"/>
+    <route id="route19" edges="de eh hg"/>
+
+    <vehicle id="veh40" type="type1" route="route3" depart="41.64"/>
+    <vehicle id="veh23" type="type1" route="route4" depart="46.82"/>
+    <vehicle id="veh2" type="type1" route="route4" depart="50.63"/>
+    <vehicle id="veh18" type="type1" route="route16" depart="51.98"/>
+    <vehicle id="veh15" type="type1" route="route6" depart="62.29"/>
+    <vehicle id="veh7" type="type1" route="route11" depart="71.50"/>
+    <vehicle id="veh31" type="type1" route="route9" depart="87.44"/>
+    <vehicle id="veh28" type="type1" route="route19" depart="90.78"/>
+    <vehicle id="veh10" type="type1" route="route7" depart="90.95"/>
+    <vehicle id="veh22" type="type1" route="route4" depart="105.42"/>
+    <vehicle id="veh13" type="type1" route="route5" depart="115.55"/>
+    <vehicle id="veh3" type="type1" route="route9" depart="116.39"/>
+    <vehicle id="veh42" type="type1" route="route18" depart="135.05"/>
+    <vehicle id="veh29" type="type1" route="route4" depart="152.94"/>
+    <vehicle id="veh4" type="type1" route="route11" depart="163.26"/>
+    <vehicle id="veh46" type="type1" route="route8" depart="165.72"/>
+    <vehicle id="veh1" type="type1" route="route4" depart="194.52"/>
+    <vehicle id="veh8" type="type1" route="route10" depart="205.70"/>
+    <vehicle id="veh21" type="type1" route="route5" depart="216.44"/>
+    <vehicle id="veh5" type="type1" route="route15" depart="217.26"/>
+    <vehicle id="veh48" type="type1" route="route1" depart="217.62"/>
+    <vehicle id="veh12" type="type1" route="route11" depart="219.87"/>
+    <vehicle id="veh44" type="type1" route="route13" depart="220.43"/>
+    <vehicle id="veh34" type="type1" route="route12" depart="231.91"/>
+    <vehicle id="veh17" type="type1" route="route4" depart="236.84"/>
+    <vehicle id="veh25" type="type1" route="route1" depart="243.34"/>
+    <vehicle id="veh11" type="type1" route="route11" depart="261.59"/>
+    <vehicle id="veh6" type="type1" route="route19" depart="261.76"/>
+    <vehicle id="veh20" type="type1" route="route4" depart="266.52"/>
+    <vehicle id="veh39" type="type1" route="route10" depart="278.44"/>
+    <vehicle id="veh24" type="type1" route="route15" depart="296.64"/>
+    <vehicle id="veh35" type="type1" route="route9" depart="302.64"/>
+    <vehicle id="veh9" type="type1" route="route10" depart="309.38"/>
+    <vehicle id="veh32" type="type1" route="route13" depart="349.83"/>
+    <vehicle id="veh47" type="type1" route="route9" depart="373.03"/>
+    <vehicle id="veh30" type="type1" route="route0" depart="399.43"/>
+    <vehicle id="veh0" type="type1" route="route2" depart="409.86"/>
+    <vehicle id="veh27" type="type1" route="route0" depart="412.81"/>
+    <vehicle id="veh36" type="type1" route="route16" depart="423.09"/>
+    <vehicle id="veh41" type="type1" route="route19" depart="425.20"/>
+    <vehicle id="veh49" type="type1" route="route17" depart="429.73"/>
+    <vehicle id="veh43" type="type1" route="route7" depart="435.87"/>
+    <vehicle id="veh14" type="type1" route="route15" depart="439.84"/>
+    <vehicle id="veh38" type="type1" route="route2" depart="445.54"/>
+    <vehicle id="veh33" type="type1" route="route10" depart="455.72"/>
+    <vehicle id="veh26" type="type1" route="route18" depart="461.57"/>
+    <vehicle id="veh16" type="type1" route="route17" depart="462.66"/>
+    <vehicle id="veh45" type="type1" route="route6" depart="471.73"/>
+    <vehicle id="veh37" type="type1" route="route5" depart="482.56"/>
+    <vehicle id="veh19" type="type1" route="route18" depart="494.05"/>
+</routes>

@@ -12,7 +12,6 @@ agent = PPO(
     "MlpPolicy",
     env,
     verbose=1,
-    tensorboard_log=f"./ppo_tensorboard/session_{int(time.time())}/",
     device="cuda",
     learning_rate=3e-4,  # Example, experiment with this
     n_steps=2048,  # Adjust to match environment requirements
@@ -20,9 +19,15 @@ agent = PPO(
 )
 print(agent.device)
 print("Starting training...")
+
 try:
-    agent.learn(total_timesteps=1000000)  # Adjust as needed for your setup
+    agent.learn(total_timesteps=4500)  # Adjust as needed for your setup
+except KeyboardInterrupt:
+    print("Training interrupted. Saving model...")
+    agent.save("models/ppo_model_")
+    print("Model Saved..")
 finally:
     env.close()
     # Save models
     agent.save(f"models/ppo_model_")
+    print("Model Saved..")

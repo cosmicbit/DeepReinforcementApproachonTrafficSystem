@@ -1,73 +1,35 @@
 <edges>
-    <edge id="ab" from="a" to="b" priority="1" numLanes="1" speed="13.89" />
-    <edge id="ba" from="b" to="a" priority="1" numLanes="1" speed="13.89" />
-
+    <!-- Horizontal edges in the first row -->
+    <edge id="ab" from="a" to="b" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="ba" from="b" to="a" priority="1" numLanes="1" speed="13.89"/>
     <edge id="bc" from="b" to="c" priority="1" numLanes="1" speed="13.89"/>
     <edge id="cb" from="c" to="b" priority="1" numLanes="1" speed="13.89"/>
 
-    <edge id="cd" from="c" to="d" priority="1" numLanes="1" speed="13.89"/>
-    <edge id="dc" from="d" to="c" priority="1" numLanes="1" speed="13.89"/>
-
+    <!-- Horizontal edges in the second row -->
+    <edge id="de" from="d" to="e" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="ed" from="e" to="d" priority="1" numLanes="1" speed="13.89"/>
     <edge id="ef" from="e" to="f" priority="1" numLanes="1" speed="13.89"/>
     <edge id="fe" from="f" to="e" priority="1" numLanes="1" speed="13.89"/>
 
-    <edge id="fg" from="f" to="g" priority="1" numLanes="1" speed="13.89"/>
-    <edge id="gf" from="g" to="f" priority="1" numLanes="1" speed="13.89"/>
-
+    <!-- Horizontal edges in the third row -->
     <edge id="gh" from="g" to="h" priority="1" numLanes="1" speed="13.89"/>
     <edge id="hg" from="h" to="g" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="hi" from="h" to="i" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="ih" from="i" to="h" priority="1" numLanes="1" speed="13.89"/>
 
-    <edge id="ij" from="i" to="j" priority="1" numLanes="1" speed="13.89"/>
-    <edge id="ji" from="j" to="i" priority="1" numLanes="1" speed="13.89"/>
+    <!-- Vertical edges between the first and second rows -->
+    <edge id="ad" from="a" to="d" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="da" from="d" to="a" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="be" from="b" to="e" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="eb" from="e" to="b" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="cf" from="c" to="f" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="fc" from="f" to="c" priority="1" numLanes="1" speed="13.89"/>
 
-    <edge id="jk" from="j" to="k" priority="1" numLanes="1" speed="13.89"/>
-    <edge id="kj" from="k" to="j" priority="1" numLanes="1" speed="13.89"/>
-
-    <edge id="kl" from="k" to="l" priority="1" numLanes="1" speed="13.89"/>
-    <edge id="lk" from="l" to="k" priority="1" numLanes="1" speed="13.89"/>
-
-    <edge id="mn" from="m" to="n" priority="1" numLanes="1" speed="13.89"/>
-    <edge id="nm" from="n" to="m" priority="1" numLanes="1" speed="13.89"/>
-
-    <edge id="no" from="n" to="o" priority="1" numLanes="1" speed="13.89"/>
-    <edge id="on" from="o" to="n" priority="1" numLanes="1" speed="13.89"/>
-
-    <edge id="op" from="o" to="p" priority="1" numLanes="1" speed="13.89"/>
-    <edge id="po" from="p" to="o" priority="1" numLanes="1" speed="13.89"/>
-
-    <edge id="ae" from="a" to="e" priority="1" numLanes="1" speed="13.89"/>
-    <edge id="ea" from="e" to="a" priority="1" numLanes="1" speed="13.89"/>
-
-    <edge id="bf" from="b" to="f" priority="1" numLanes="1" speed="13.89"/>
-    <edge id="fb" from="f" to="b" priority="1" numLanes="1" speed="13.89"/>
-
-    <edge id="cg" from="c" to="g" priority="1" numLanes="1" speed="13.89"/>
-    <edge id="gc" from="g" to="c" priority="1" numLanes="1" speed="13.89"/>
-
-    <edge id="dh" from="d" to="h" priority="1" numLanes="1" speed="13.89"/>
-    <edge id="hd" from="h" to="d" priority="1" numLanes="1" speed="13.89"/>
-
-    <edge id="ei" from="e" to="i" priority="1" numLanes="1" speed="13.89"/>
-    <edge id="ie" from="i" to="e" priority="1" numLanes="1" speed="13.89"/>
-
-    <edge id="fj" from="f" to="j" priority="1" numLanes="1" speed="13.89"/>
-    <edge id="jf" from="j" to="f" priority="1" numLanes="1" speed="13.89"/>
-
-    <edge id="gk" from="g" to="k" priority="1" numLanes="1" speed="13.89"/>
-    <edge id="kg" from="k" to="g" priority="1" numLanes="1" speed="13.89"/>
-
-    <edge id="hl" from="h" to="l" priority="1" numLanes="1" speed="13.89"/>
-    <edge id="lh" from="l" to="h" priority="1" numLanes="1" speed="13.89"/>
-
-    <edge id="im" from="i" to="m" priority="1" numLanes="1" speed="13.89"/>
-    <edge id="mi" from="m" to="i" priority="1" numLanes="1" speed="13.89"/>
-
-    <edge id="jn" from="j" to="n" priority="1" numLanes="1" speed="13.89"/>
-    <edge id="nj" from="n" to="j" priority="1" numLanes="1" speed="13.89"/>
-
-    <edge id="ko" from="k" to="o" priority="1" numLanes="1" speed="13.89"/>
-    <edge id="ok" from="o" to="k" priority="1" numLanes="1" speed="13.89"/>
-
-    <edge id="lp" from="l" to="p" priority="1" numLanes="1" speed="13.89"/>
-    <edge id="pl" from="p" to="l" priority="1" numLanes="1" speed="13.89"/>
+    <!-- Vertical edges between the second and third rows -->
+    <edge id="dg" from="d" to="g" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="gd" from="g" to="d" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="eh" from="e" to="h" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="he" from="h" to="e" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="fi" from="f" to="i" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="if" from="i" to="f" priority="1" numLanes="1" speed="13.89"/>
 </edges>
