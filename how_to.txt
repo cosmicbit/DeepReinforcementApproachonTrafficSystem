@@ -1,0 +1,5 @@
+python .\gen_route.py // generates same routes for both ppo model and ttl
+
+python .\test.py // tests ppo model
+
+python .\sumo_env_ttl.py // tests traditional model
