@@ -9,7 +9,7 @@
     </input>
 
     <output>
-        <output-file value="simple_network.net.xml"/>
+        <output-file value="grid4by4.net.xml"/>
     </output>
 
 </netconvertConfiguration>

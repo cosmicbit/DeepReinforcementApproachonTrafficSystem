@@ -12,7 +12,7 @@ agent = PPO(
     "MlpPolicy",
     env,
     verbose=1,
-    tensorboard_log=f"./ppo_tensorboard/session_{int(time.time())}/",
+    tensorboard_log=f'./ppo_tensorboard/session_{int(time.time())}/',
     device="cuda",
     learning_rate=3e-4,  # Example, experiment with this
     n_steps=2048,  # Adjust to match environment requirements
@@ -21,7 +21,7 @@ agent = PPO(
 print(agent.device)
 print("Starting training...")
 try:
-    agent.learn(total_timesteps=10000)  # Adjust as needed for your setup
+    agent.learn(total_timesteps=100)  # Adjust as needed for your setup
 finally:
     env.close()
     # Save models

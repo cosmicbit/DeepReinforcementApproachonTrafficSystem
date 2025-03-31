@@ -4,33 +4,34 @@ import subprocess
 import numpy as np
 from gym import Env
 from gym.spaces import MultiDiscrete, Box
-
+from generator import TrafficGenerator
 # Set the path to your SUMO installation
-SUMO_HOME = "/home/ryoiki/sumo"  # SUMO directory path
-SUMO_BINARY = SUMO_HOME + "/bin/sumo-gui"  # SUMO-GUI for visual simulation, use "sumo" for command-line version
+SUMO_HOME = "/usr/bin/sumo"  # SUMO directory path
+SUMO_BINARY = "sumo-gui"  # SUMO-GUI for visual simulation, use "sumo" for command-line version
 SUMO_CONFIG = "Simulation Files/simulation.sumocfg"  # Your SUMO simulation configuration file
-sumo_tools_path = os.path.join(SUMO_HOME, 'tools')  # Path to the SUMO tools directory.
-net_file = 'Simulation Files/simple_network.net.xml' # Path to the SUMO network file.
-routes_file = 'Simulation Files/randomRoutes.rou.xml' # Path to the SUMO routes file.
-trips_file = 'Simulation Files/randomTrips.trips.xml' # Path to the SUMO routes file.
+net_file = 'Simulation Files/grid4by4.net.xml' # Path to the SUMO network file.
 
 
 class SumoEnv(Env):
     def __init__(self):
         super(SumoEnv, self).__init__()
+        self.numIntersections = None
+        self.intersections = None
         self.net_file = net_file
-        self.route_file = routes_file
+        #self.route_file = routes_file
         self.sumoCmd=[SUMO_BINARY, "-c", SUMO_CONFIG]
-        self.numIntersections=12
-        self.intersections = ['b', 'c', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'n', 'o']
+        
         self.action_space = MultiDiscrete([16]*12)  # Observations: Number of vehicles, queue lengths, etc., for each intersection
-        self.observation_space = Box(low=0, high=np.inf, shape=(36,), dtype=np.float32)
+        self.observation_space = Box(low=0, high=np.inf, shape=(24,), dtype=np.float32)
         self.stepCount=0
 
     def reset(self):
+        TrafficGen=TrafficGenerator(0,0)
         # Generate random trips, convert to routes, and run the simulation
-        self.generate_routes(10000)
+        TrafficGen.generate_routes(net_file, 100)
         traci.start(self.sumoCmd)
+        self.intersections =traci.trafficlight.getIDList()
+        self.numIntersections = len(self.intersections)
         return self._get_state()
 
     def step(self, actions):
@@ -49,11 +50,10 @@ class SumoEnv(Env):
     def _get_state(self):  # Implementation to gather the current state from SUMO
         state=[]
         for i in self.intersections:
-            queue_length = sum(traci.lane.getLastStepVehicleNumber(lane) for lane in traci.trafficlight.getControlledLanes(i))
-            waiting_time = sum(traci.lane.getWaitingTime(lane) for lane in traci.trafficlight.getControlledLanes(i))
+            num_of_vehicles = sum(traci.lane.getLastStepVehicleNumber(lane) for lane in traci.trafficlight.getControlledLanes(i))
             current_phase = traci.trafficlight.getRedYellowGreenState(i)
             encoded_phase = self.encode_phase(current_phase)
-            state.extend([queue_length, waiting_time, encoded_phase])
+            state.extend([num_of_vehicles, encoded_phase])
 
         return np.array(state)
 
@@ -94,30 +94,3 @@ class SumoEnv(Env):
     def close(self):
         traci.close()
 
-    def generate_routes(self, end_time, begin_time=0, trip_probability=2):
-        random_trips_script = os.path.join(sumo_tools_path, 'randomTrips.py')
-
-        # Step 1: Generate random trips
-        generate_trips_command = [
-            'python', random_trips_script,
-            '-n', net_file,
-            '-o', trips_file,
-            '--seed', str(np.random.randint(0, 10000)),
-            '-b', str(begin_time),
-            '-e', str(end_time),
-            '-p', str(trip_probability)
-        ]
-
-        # Execute the command to generate random trips
-        subprocess.run(generate_trips_command, check=True)
-
-        # Step 2: Convert trips to routes
-        duarouter_command = [
-            'duarouter',
-            '-n', net_file,
-            '-t', trips_file,
-            '-o', routes_file
-        ]
-
-        # Execute the command to convert trips to routes
-        subprocess.run(duarouter_command, check=True)

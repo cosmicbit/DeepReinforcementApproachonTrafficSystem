@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration xmlns="http://sumo.dlr.de/xsd/sumo_config_file.xsd">
   <input>
-    <net-file value="simple_network.net.xml"/>
+    <net-file value="grid4by4.net.xml"/>
     <route-files value="randomRoutes.rou.xml"/>
   </input>
-  <collision action="teleport"/>
+  <collision action="None"/>
   <time>
     <begin value="0"/>
     <end value="100"/>
